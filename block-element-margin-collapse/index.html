@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Block Element Margin Collapse
+    </title>
+    <style>
+
+.showcase1 .son{
+  border: 1px solid CORNSILK;
+  padding: 10px;
+  margin:40px;
+  color: white;
+  background: BLACK;
+}
+
+.showcase1 .dad{
+  background: GAINSBORO;
+  margin: 10px;
+}
+
+
+.showcase1{
+  border: 1px dotted;
+
+  margin: 20px;
+}
+
+.showcase2{
+  border: 1px dotted;
+  margin: 20px;
+}
+
+
+.showcase2 .son{
+  border: 1px solid CORNSILK;
+  padding: 10px;
+  margin:40px;
+  color: white;
+  background: BLACK;
+}
+
+.showcase2 .dad{
+  background: GAINSBORO;
+  margin: 10px;
+  border: 1px solid;
+}
+
+
+.showcase3{
+  border: 1px dotted;
+  margin: 20px;
+}
+
+
+.showcase3 .son{
+  border: 1px solid CORNSILK;
+  padding: 10px;
+  margin:40px;
+  color: white;
+  background: BLACK;
+}
+
+.showcase3 .dad{
+  background: GAINSBORO;
+  margin: 10px;
+  padding: 20px ;	
+}
+
+
+.showcase4{
+  border: 1px dotted;
+  margin: 20px;
+}
+
+
+.showcase4 .son{
+  border: 1px solid CORNSILK;
+  padding: 10px;
+  margin:40px;
+  color: white;
+  background: BLACK;
+}
+
+.showcase4 .dad{
+  background: GAINSBORO;
+  margin: 10px;
+
+}
+
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="description">
+      <h3>margin合并现象: 父级块元素和子块元素在垂直方向上的 margin 共用同一个空间</h3>
+
+      <ul>
+        <li>
+          当父元素上没有可以阻挡子元素margin的属性时, 父级块元素和子块元素将会发生margin合并. </li> 
+        <li>子元素并没有在垂直方向上将父元素"撑开", 看起来就像是子元素的 margin 跑到了父元素上.
+        </li>
+
+        <div class="showcase1">
+          <div class="dad">
+            <div class="son">
+              这是子元素, 父元素上没有可以挡住它的margin的属性. 子元素的margin影响到了最外层的有边框的元素.
+            </div>
+          </div>
+        </div>
+        <li>		
+          如果在父元素上定义了任何可以挡住子元素margin的东西, 例如: margin, padding, 内联元素, 那么就可以避免 margin 合并
+        </li>
+        <div class="showcase2">
+          <div class="dad">
+            <div class="son">
+              这是子元素, 父元素上定义了border, 阻止了子元素的 margin 和父元素的 margin合并.			
+            </div>
+          </div>
+        </div>
+        <div class="showcase3">
+          <div class="dad">
+            <div class="son">
+              这是子元素, 父元素上定义了 padding: 20px,阻止了子元素的 margin 和父元素的 margin合并				
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase4">
+          <div class="dad">
+            父元素上的这行文字将会挡住子元素的margin-top
+            <div class="son">
+              这是子元素				
+            </div>
+          </div>
+        </div>
+
+      </ul>
+    </div>
+
+  </body>
+</html>

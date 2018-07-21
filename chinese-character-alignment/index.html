@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>汉字两端对齐</title>
+    <style> 
+*{
+  margin:0;
+  padding:0;
+}
+
+div.description{
+  padding: 10px;
+  background: black;
+  color:white;
+  margin-bottom:20px;
+
+}
+
+body{
+  /* margin-top:50px; */
+}
+div{
+  border: 1px dotted red;
+}
+
+span{
+  text-align: justify;
+  /* border: 1px solid black; */
+
+  display: inline-block;  width: 5em;
+  height: 22px;
+  overflow:hidden;
+}
+
+span::after{
+  border: 1px solid blue;
+  content:'';
+  display: inline-block;
+  width:100%;
+} 
+    </style>
+  </head>
+  <body>
+    <div class="description">
+      <li>
+        通过 text-align:justify 可以定义行内元素/文字向两边对齐
+      </li>
+      <li>
+        这里必须要使用 inline-block 来定义 span 的宽度和高度. inline-block 带来了定义的数值以外, 不可控的额外高度.
+      </li>
+    </div>
+    <div>
+      <span>姓名</span>
+      <br>
+      <span>联系方式</span>
+    </div>
+  </body>
+</html>

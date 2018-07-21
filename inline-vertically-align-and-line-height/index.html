@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Inline Element Vertically Centering & Line-height</title>
+		<style>
+*{
+  padding:0;
+  margin:0;
+}
+
+
+li{padding: 10px 0;}
+li>b{
+	font-size: 1.5em;
+}
+
+div{
+  outline: 1px dotted black;
+  padding: 25px 0;
+  background: pink;
+
+	  /* 非数字的行高值在继承时会出现问题, 应该直接定义在行内元素上 */
+    /* line-height:50px; */
+}
+
+div.description{
+	background: black;
+	color:white;
+}
+
+div.showcase{
+		white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow:hidden;
+}
+
+span{
+  font-family:'arial-black';
+  border: 1px solid red;
+  font-size: 12px;
+  line-height:50px;
+
+}
+    </style>
+	</head>
+	<body>		
+		<div class='showcase'>
+			<span>
+				这是一个高为 100px 的div, 内部的文本垂直居中, 文本的行高为 50px, 容器的padding 为 25px.
+			</span>
+		</div>
+		<div class="description">
+			<li>行高影响行内元素的行盒高度. <b>也就是被撑开的div高度</b></li>
+			<li>行内元素的高度始终 = <b>font-size * 使用字体的默认行高</b>. 用户定义的行高值<b>不会改变行内元素自身的高度</b></li>
+
+			<li>非数字的行高值在继承时会出现问题, 所以我们应该<b>直接在行内元素上定义行高</b></li>
+			<li>通过行内元素的 line-height 属性 + 块元素的 padding, 就可以获得一个 <b>垂直居中的行内元素/文字</b> . 同时它是响应式的</li>
+
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Avatar Upload Widget</title>
+    <style>
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.imagePicker{
+  margin: 0 auto;
+  width:200px;
+  height:200px; 
+  border: 2px solid red ;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.5); 
+  position: relative;
+}
+
+.imagePicker:hover{
+  cursor: pointer;
+}
+
+.imagePicker img{
+  max-height: 100%;
+  max-width: 100%;
+  /* border: 1px solid blue ; */
+  vertical-align: top; 
+}
+
+.imagePicker input[type=file]{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius:50%;
+  top:0;
+  left:0;
+  opacity: 0; 
+}
+
+.imagePicker input[type=file]{
+  z-index:1;
+  cursor: pointer;
+}
+
+.imagePicker .mask{
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  top:0;
+  left:0;
+  display: none;
+  background: rgba(0,0,0,0.2);
+  z-index:0;
+  font-weight: bold;
+  color: white;
+}
+
+.imagePicker:hover .mask{
+  display: flex; 
+  justify-content:center;
+  align-items: center;
+}
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="imagePicker">
+      <img src="http://onmrvob5a.bkt.clouddn.com/urara%E8%BF%B7%E8%B7%AF%E5%B8%96.jpg" alt="">
+      <input id='imageInput' type="file">
+      <div class="mask">
+        编辑 
+      </div>
+
+    </div> 
+    <script>
+      imageInput.onchange = (e)=>{
+        let fileInfo = e.target.files[0]
+        console.log( fileInfo ) 
+      } 
+    </script>
+  </body>
+</html>

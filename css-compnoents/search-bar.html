@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Imitated Baidu Search Bar
+    </title>
+
+    <style type="text/css">
+.icon {
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+/* init */
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+*{ 
+  box-sizing: border-box;
+}
+
+*::before, *::after{
+  box-sizing: border-box;
+}
+
+ul, ol{
+  list-style: none;
+}
+
+/* init ends here */
+
+body{
+  min-height: 100vh;
+    border : 1px solid ; 
+  display: flex;
+  justify-content: center;
+  align-items:center; 
+    min-width :700px;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.suggestion{
+  display: none;	
+  position: absolute;
+  top: 100%;
+}
+
+.suggestion.active{
+  display: block;
+}
+
+.clearfix::after{
+  display: block;
+  content:'';
+  clear:both;
+}
+
+.input-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
+.input-wrapper > input[type=text]{
+  border: 1px solid #b8b8b8;
+  width: 540px;
+  height: 35px;
+  line-height: 35px;
+  padding-left: 8px;
+  font-size: 15px; 
+}
+
+.input-wrapper > input[type=text]:focus{
+  outline: none;
+  border-color: #4b94fc;
+}
+
+.float-div{ 
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.float-div svg{
+  width: 20px;
+  height: 20px;
+  fill: #b8b8b8;
+}
+
+.input-wrapper  .split-line{
+  box-sizing: content-box;
+  width: 1px;
+  height: 16px;
+  border-left: 1px solid #b8b8b8; 
+  margin: 0 10px;
+}
+
+
+.float-div svg:hover{
+  fill:  #4b94fc	;
+  cursor: pointer;
+}
+
+.input-wrapper + button{
+  background:#3988fb;
+  color: white;
+  font-size: 14px;
+  padding: 0 20px;
+  border:none;
+}
+
+.input-wrapper + button:focus{
+  outline: none; 
+}
+
+
+.input-wrapper + button:hover{
+  background: #317ef3;
+  /* border-bottom: 1px solid #2868c8  */;
+  box-shadow: 1px 1px 1px #ccc }
+
+
+    </style>
+    <script src='//at.alicdn.com/t/font_752963_h32mrhpy2ub.js'></script>
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <span class="input-wrapper">
+        <input type="text" id='keyword' autocomplete='off' placeholder="请输入内容">
+        <!-- 按钮和分割线的容器 -->
+        <span class="float-div">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-icon-test"></use>
+          </svg>	
+          <!--	 实现分割"竖线" 不要使用 | 来表示. '|' 是一个字符,高度受到字体的默认行高影响, 是不可控的. 我们使用一个 span/div 来实现分割线.
+          -->
+          <span class='split-line'> </span>
+
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-LC_icon_camera_line_4	
+            "></use>
+          </svg>	
+        </span> 
+      </span>
+      <button>百度一下</button>
+      <ul class='suggestion' id='suggestion'>
+        <li>选项1</li>
+        <li>选项2</li>
+        <li>选项3</li>
+        <li>选项4</li>
+      </ul>
+
+    </div>
+
+    <script>
+      window.onload = ()=>{
+        keyword.oninput = (e)=>{
+          let value = keyword.value
+          if(value){
+            console.log('显示建议')
+            suggestion.classList.add('active')
+          } 
+          else{
+            console.log('清除建议')
+            suggestion.classList.remove('active')
+          }
+        }
+      } </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

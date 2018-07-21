@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>blurred background</title>
+  <style>
+*{
+  padding: 0;
+  margin:0;
+}
+
+.cover {
+  color: white;
+  border: 1px solid black;
+  width: 400px;
+  height: 800px;
+}
+
+.cover::before{
+  content:'';
+  position: absolute;
+  top:0;
+  left:0;
+  width: 400px;
+  height: 800px;
+  background: 
+    url(http://p1.music.126.net/_ZIyHUML8sXBvJXqLdQDOg==/105553116278617.jpg?imageView&thumbnail=360x0&quality=75&tostatic=0)
+    center center;
+  background-size: cover;
+
+  filter: blur(5px);
+  z-index: -1;
+}
+  </style>
+</head>
+
+<body>
+  <div class="cover">
+    <li>
+      模糊背景的容器和文本同级 (siblings), 这样才不会将文本模糊化.
+    </li>
+    <li>
+      模糊背景的容器使用更低的z-index
+    </li>
+
+  </div>
+
+</body>
+
+</html>

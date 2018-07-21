@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+      float layout
+    </title>
+    <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.topbar{
+  background: lightgrey;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clearfix::after{
+  content:'';
+  display: block;
+  clear:both;
+}
+
+/* for IE6 */
+.clearfix{
+  zoom:1
+}
+
+.topbar > .logo{
+  float: left; 
+  box-sizing: border-box;
+}
+
+.topbar > .logo{
+  width: 100px;
+  background: #000;
+  height: 36px; 
+  color: white;
+  line-height: 36px;
+  text-align: center;
+}
+
+
+.topbar > .nav-wrapper{
+  float:right;
+}
+
+.nav{
+  padding: 6px 0;
+  line-height: 24px;
+}
+
+.navItem{
+  float:left;
+  margin-left:  20px;
+}
+
+.nav2{
+  display:none;
+}
+
+  @media(max-width: 420px){
+    .nav{
+      display:none;
+    }
+    .nav2{
+      display:block;  
+    }
+  }
+
+
+
+
+
+  .banner{
+    width:800px;
+    height: 300px;
+    background: #ddd url('https://gfnc1kn6pi-flywheel.netdna-ssl.com/wp-content/uploads/2017/09/cute1.jpg')
+      no-repeat center;
+
+    background-size: cover;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+
+  @media(max-width: 420px){
+    .banner{
+      width: 100%;
+    }
+  }
+
+  /* 外面的容器用来定宽和居中 */
+  .pictures{
+    width:800px;
+    background: #eee;
+    margin: 0px auto;
+  }
+
+
+  @media(max-width: 420px){
+    .pictures{
+      width: 100%;
+      overflow: hidden;
+    }
+
+  }
+
+  .picture-wrapper{ 
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+  .picture{
+    width: calc(25% - 8px);
+    height: 194px;
+    margin: 4px;
+    background: #bbb;
+  } 
+
+
+  @media(max-width: 420px){
+    .picture{
+      width: calc(50% - 8px);
+    }
+  }
+
+  /* 广告区 */ 
+  .art{
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media(max-width: 420px){
+    .art{
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  .sider{ 
+    width: calc(33.33% - 20px);
+    height: 100%;
+    height: 300px; 
+    border: 1px solid;
+  }
+
+  .main{
+    width: calc(66.66%) ;
+    height: 100%;
+    height: 300px; 
+    border: 1px solid;
+  }
+
+
+  @media(max-width: 420px){
+    .sider{
+      width: 100%;
+      height: auto;
+    }
+
+    .main{
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+
+    </style>
+  </head>
+  <body>
+
+    <!-- 顶部logo 和 导航栏 -->	
+    <div class="topbar clearfix">
+      <div class="logo">
+        logo
+      </div>
+      <div class="nav-wrapper" >
+        <div class="nav clearfix">
+          <div class="navItem">导航1</div>
+          <div class="navItem">导航2</div>
+          <div class="navItem">导航3</div>
+          <div class="navItem">导航4</div>
+          <div class="navItem">导航5</div>
+        </div>
+        <div class="nav2">
+          三
+        </div>
+
+      </div>	
+    </div> 
+
+    <!-- 顶部logo 和 导航栏 结束-->	
+
+    <div class="banner">
+    </div>
+
+    <!-- 定义平均布局区域, 使用了 margin hack -->
+    <div class="pictures">
+      <div class="picture-wrapper clearfix">
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <!-- <div class="picture"></div>  -->			
+      </div>
+    </div>
+
+
+    <!-- 定义广告区. 类名使用 art 而不是 ad, 因为ad 会被插件屏蔽掉 -->
+    <div class="art ">
+      <div class="sider">
+        <div>
+          广告1 
+        </div>
+      </div>	
+      <div class="main">
+        <div>
+          广告2
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

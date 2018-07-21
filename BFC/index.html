@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>BFC块级格式化上下文</title>
+    <style>
+body{
+  padding: 0;
+  margin: 0;
+}
+.clearfix::after{ 
+  display: block;
+  content:'';
+  clear:both; 
+}
+
+.description{ 
+  background: #000;
+  color: #fff; 
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:20px;
+} 
+
+.bfc-effect > ul > li{
+  margin-bottom: 20px;
+
+}
+
+.description a {
+  color:inherit;
+
+}  
+.showcase{ 
+}
+
+.showcase > div{
+  padding:20px;
+  border: 1px dotted lightgrey;
+  margin: 0px auto;
+}
+
+.showcase .wrapper{
+
+}
+
+.showcase > .example-a  .float-example .parent{
+  border: 2px solid;
+}
+
+.showcase > .example-a  .float-example .child{
+  float:left;
+  height: 100px;
+  width: 100px;
+  background: pink;
+}
+
+.showcase > .example-a .bfc-example .parent{
+  border: 2px solid;
+  /* display: flex; */ 
+  display:flow-root;
+}
+
+
+.showcase > .example-a  .bfc-example .child{ 
+  float:left;
+  height: 100px;
+  width: 100px;
+  background: pink;
+}
+
+ .showcase > .example-a .bfc-margin-example .parent{  
+   display: flow-root;
+   background: #eee;
+ }
+
+ .showcase > .example-a .bfc-margin-example .child{ 
+
+   border: 1px dotted;
+   height: 100px;
+   /* width: 200px; */
+   margin-bottom: 100px;
+   background: pink; 
+
+ }
+
+ b{
+   font-size: 1.2em;
+ }
+
+ .example-b .parent{
+   border: 2px solid;
+   display:flow-root;
+ }
+
+
+ .example-b .child{
+   background: pink; 
+   border: 1px dotted;
+
+ }
+
+ .example-b .grandchild{ 
+   float:left;
+   height: 50px;
+   width: 50px;
+   background:PALEVIOLETRED ;
+ }
+
+ .example-c .float-child-a{
+   float:left;
+   height: 100px;
+   width: 100px;
+   border: 2px solid lightblue;
+   background: #000;
+   color:white;
+ }
+
+ .example-c .child-b{
+   height: 100px;
+   /* width: 200px; */
+   border: 5px solid black;
+   background: #ddd;
+ }
+
+ .example-c .bfc-child-b{
+   display: flow-root;
+   height: 100px; 
+   border: 5px solid black;
+   background: #ddd;
+ }
+
+ .example-d .bfc-parent{
+   border: 2px solid black;
+ }
+
+
+ .example-d .positioned-child
+ {
+   position: relative;
+   background: pink;
+   height: 100px;
+   width: 100px;
+
+   top: 20px;
+   left: 100px;
+
+ }
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="description">
+      <div class="bfc-description">
+        <h2>BFC 是什么</h2>
+        <ul>
+          <li>
+            BFC 是 block formatting context, 块格式化上下文.</li> 
+          <li> 是Web页面的可视化CSS渲染的一部分，是布局过程中生成块级盒子的区域，<b>也是浮动元素与其他元素的交互限定区域。(BFC并不能限定定位元素)</b>
+
+          </li>
+        </ul>
+      </div>
+      <div class="bfc-condition">
+
+
+        <h2>触发 BFC 的条件:</h2>
+        <ul>
+          <li>
+            浮动
+          </li>
+          <li>
+            绝对定位和相对定位
+          </li>
+          <li>
+            display: inline-block;
+          </li>
+          <li>
+            overflow 不为默认值 (visible)
+          </li>
+          <li>
+            <b>display: flow-root;</b> 这个属性是专门用来触发 BFC 的, 不会带来其他副作用
+          </li>
+          <li>
+            display: flex/inline-flex;
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">更多</a>
+          </li>  
+        </ul> 
+      </div>
+      <div class="bfc-effect">
+
+        <h2>BFC 的作用: </h2>
+        <ul>
+          <li>
+            爸爸管儿子 (示例1)
+            <ul>
+              <li>
+                包围浮动元素: 浮动的子元素无法撑起父元素, 但是父元素触发了BFC之后, 就可以将浮动的子元素包围起来.
+              </li>
+              <li>
+                约束子元素: 即使在父元素未定义边框的情况下, 子元素的 margin 也不能够超出父元素了. 
+              </li>
+            </ul>
+          </li>  
+          <li>
+            爸爸管儿子, 但是不管孙子 (示例2)
+            <ul>
+              <li> 
+                BFC 对子元素生效, 不会对子元素的后代元素生效
+              </li>
+            </ul>
+          </li> 
+          <li>
+            和外界划清界限 (示例3)
+            <ul>
+              <li>
+                兄弟元素之间, 如果有一个元素浮动 (脱离文本流), 那么它所占用的空间就会和另一个文本流元素重叠.
+              </li>
+              <li>
+                兄弟元素触发bfc后, 就不会和浮动元素重叠.
+              </li>
+            </ul>
+          </li>
+          <li>  
+            依赖BFC来清除浮动是错误的做法
+            <ul>
+              <li>
+                触发BFC 确实可以起到清除浮动的作用. 但是除了 display: flow-root 以外, 其他的属性都会带来其他的影响 (不正交). 
+              </li>
+              <li>
+                display:flow-root  是一个新的css 属性值, 浏览器兼容度还不够高.
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            BFC 并不能限定定位元素 (示例4)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="showcase">
+      <div class='example-a'>
+        <h3>示例1 - 爸爸管儿子</h3>
+        <ul>
+          <li>
+            <p>浮动元素会脱离父元素</p> 
+            <div class='float-example'>
+              <div class="wrapper  clearfix">
+                <div class="parent">这是父元素
+                  <div class="child">
+                    这是子元素
+                  </div>	
+                </div>
+              </div>
+            </div>
+          </li> 
+          <li>	
+            <p>在父元素上触发了BFC之后 (display:flow-root), 浮动的子元素不再脱离父元素</p>
+            <div class="bfc-example">  
+              <div class="wrapper clearfix">
+                <div class="parent">这是父元素 
+                  <div class="child">
+                    这是子元素 
+                  </div>	
+                </div> 
+              </div>
+            </div>
+          </li>
+          <li>	
+            <p> 在父元素上触发了BFC之后 (display:flow-root), 子元素的 margin 不再能够超出父元素</p>
+            <div class="bfc-margin-example">  
+              <div class="wrapper clearfix">
+                <div class="parent">这是父元素, 父元素上只定义了 {display: flow-root; background: #eee;}
+                  <div class="child">
+                    这是子元素, 子元素的margin-bottom 被父元素束缚住了 
+                  </div>	
+                </div> 
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="example-b">
+        <h3>示例2</h3>
+        <ul>
+          <li>
+            <p>BFC 会影响子元素, 但是不会影响到子元素的后代</p> 
+            <div class="wrapper  clearfix">
+              <div class="parent">这是父元素
+                <div class="child">
+                  这是子元素
+                  <div class="grandchild">
+                    这是孙子元素
+                  </div>
+                </div>	
+              </div>
+            </div>
+          </li> 
+        </ul> 
+      </div>
+
+      <div class="example-c">
+        <h3>示例3 - 划清界限</h3>
+        <ul>
+          <li>
+            <p>
+            元素a是浮动元素(bfc), 兄弟元素b是普通文档元素, 元素b的空间被元素a侵入了
+            </p> 
+            <div class="wrapper  clearfix">
+              <div class="float-child-a">
+                这是元素a
+              </div>	
+              <div class="child-b">
+                这是元素b
+              </div>
+            </div>
+          </li> 
+          <li>
+            <p>在元素b上也触发了bfc后 (display:flow-root) 两个bfc之间变得互不侵犯.</p>
+            <div class="wrapper  clearfix">
+              <div class="float-child-a">
+                这是元素a
+              </div>	
+              <div class="bfc-child-b">
+                这是元素b
+              </div>
+            </div>
+          </li>
+        </ul> 
+      </div>
+
+      <div class="example-d">
+        <h3>示例4 - BFC和定位元素</h3>
+        <ul>
+          <li>
+            <p>
+            BFC 只能限定浮动元素和文档流元素, 并不能限定定位元素
+            </p> 
+            <div class="wrapper">
+              <div class="bfc-parent">
+                这是一个BFC父元素
+                <div class="positioned-child">
+                  这是相对定位的子元素
+                </div>
+              </div>	
+            </div>
+          </li> 
+        </ul> 
+      </div>
+    </div>
+
+  </body>
+</html>

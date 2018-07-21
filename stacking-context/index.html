@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Stacking Context
+    </title>
+    <style>
+
+.parent{
+  height:200px;
+  border: 10px solid rgba(255,0,0,1);
+  padding: 15px;
+  margin: 12px;
+}
+
+
+.a1, .b1{
+  position: relative;
+
+}
+
+.a1{
+  background: lightblue;
+  z-index:2;
+  height:100%;
+}
+
+.b1{
+  background: blue;
+  color:white;
+  margin-top:-90px;
+  z-index:-1;
+}
+
+.relative{
+  width:200px;
+  height:100px;
+  background: orange;
+  position: relative;
+  border: 1px dotted ;
+}
+
+.a{z-index:1} 
+.b{z-index:1; 
+  margin-top:-20px;
+  margin-left: 20px;
+  border: 2px solid;}
+    </style>
+  </head>
+  <body> 
+    <div class="description">
+      <ul>
+        <li>堆叠上下文:
+          <ul>
+            <li>堆叠上下文是元素堆叠顺序的参考系, 堆叠顺序是相对于元素最近的堆叠上下文生效</li>
+            <li>html元素是所有元素默认的堆叠上下文</li>
+            <li>两个元素的层叠顺序首先是比较对应的堆叠上下文在 z 轴上的顺序</li>
+          </ul>
+        </li>
+        <li>示例: <ul>
+            <li>
+              元素a 和 元素b 是兄弟元素
+            </li>
+            <li>元素b 在元素a后面, 层叠顺序上更靠上 </li>	
+            <li>元素a 和 元素b 都是相对定位元素, z-index都为1, 它们为各自的子元素创建了一个堆叠上下文</li>
+            <li>元素b创建的堆叠上下文高于元素a创建的堆叠上下文</li>
+            <li>因此元素b的子元素始终高于元素a, 也高于元素a的所有子元素</li>
+          </ul></li>
+      </ul>
+    </div>
+    <div class="parent">
+      <div class="a relative">a
+        <div class="a1">a1 是元素a的子元素
+          a1 的 z-index:2
+        </div>
+
+      </div>
+      <div class="b relative">b
+        <div class="b1">
+          b1 是元素b的子元素
+          a1 的 z-index: -1
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

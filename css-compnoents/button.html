@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>好看的按钮</title>
+    <style>
+/* clear default style of <button> */ 
+.my-button{
+  background: none; 
+  border: none;
+}
+/* clear default style ends */
+
+/* 重新申明了button 上的样式, 以便用户使用 <a> 作为按钮 */
+.my-button{
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  text-decoration: none;
+  padding: 0 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+  font-family:Roboto, sans-serif;
+}
+
+.my-button:hover{
+  background: #e5e5e5;
+}
+
+.my-button:focus{
+  outline: none;
+  background: #e5e5e5;
+}
+
+/* 水波纹的初始样式 */
+.circle{
+  width: 1px;
+  height: 1px;
+  transition: transform 0.3s;
+  position: absolute;
+  border-radius: 50%;
+  visibility: none;
+  pointer-events: hidden;
+}
+
+/*  水波纹效果 */
+.circle.active{ 
+  background: rgba(0,0,0,0.1);
+  transform:scale(200);
+  visibility:visible;
+}
+
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <button class="my-button">
+      BUTTON
+      <div class="circle"></div>
+    </button>
+    <script>
+      // init
+      let cursorRelativePosition = {
+        x : '',
+        y : '',
+      }
+
+let circle = document.querySelector('.circle')
+let button = document.querySelector('.my-button')
+
+button.addEventListener('click', (e)=>{
+
+  // get relative position of cursor to button
+  buttonLeft = e.currentTarget.offsetLeft 
+  buttonTop = e.currentTarget.offsetTop 
+
+  cursorRelativePosition.x = (e.clientX - buttonLeft + 'px')
+  cursorRelativePosition.y = ( e.clientY- buttonTop + 'px')
+
+  circle.style.top = cursorRelativePosition.y 
+  circle.style.left = cursorRelativePosition.x  
+  circle.classList.add('active')
+
+})
+
+
+circle.addEventListener('transitionend',
+  ()=>{
+    console.log("circle's transition ended")
+    circle.classList.remove('active')
+  }
+)
+
+    </script>
+
+  </body>
+</html>

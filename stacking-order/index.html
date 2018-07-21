@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Stacking Order
+    </title>
+    <style>
+body{ min-width: 800px; margin:0 auto; } 
+div{ padding: 10px; } 
+div.container > span{ margin-left:-250px; } 
+.description{
+  background: black;
+  color: white;
+  padding:20px;
+}
+
+.container {
+  position: relative;
+
+  /* 设置z-index为auto以外的任何值后, 将会触发一个堆叠上下文 */
+  /* 触发堆叠上下文后, z-index 为负数的元素仍然会在 background和border层以上.  将下面的代码取消注释以查看效果*/
+
+  /* z-index:0; */
+
+  padding-top:50px;
+  padding-bottom:50px;
+  border: 10px dotted GAINSBORO;
+  background-color: rgba(255, 0, 0, 0.5);
+  line-height: 30px;
+  font-weight:bold;
+  /* 使用 text-indent 来定义文字的缩进 */
+  text-indent: -20px;
+}
+
+.container div{  text-indent: 0; }
+
+.container > .child{
+  background: grey;
+  text-indent: 0;
+  margin-top: -20px;
+  color:LIGHTSEAGREEN; 
+}
+
+.child >span{
+  margin-left: -100px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.container .float{
+  text-indent:0;
+  color: red;
+  background: BISQUE ;
+  padding: 30px;
+  float:left; 
+}
+
+.relative{
+  background: RGB(135, 206, 235);
+  margin-top:-10px;
+  position: relative;
+  border: 2px dotted;
+}
+
+.absolute{
+  background: LIGHTCYAN;
+  position: absolute;
+  top: 130px;	
+}
+
+.button{
+  position:relative;
+  z-index:0;
+  margin-top: -50px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="description">
+      <ul>
+        <li> 一个元素上的内容有着不一样的堆叠顺序:  </li>
+        <ul>
+          <li>边框处于背景的上方</li>
+
+          <li>文字(内联元素)处于边框的上方</li>	
+          <li>文字(内联元素)处于父级块元素的上方</li>	
+        </ul>
+        <li>兄弟元素:</li>
+        <ul>
+          <li> 兄弟块元素之间, 靠后的元素会出现在上方 (距离眼睛更近) </li>
+        </ul>
+        <li>浮动元素:</li>
+        <ul>
+          <li> 浮动元素高于块级元素</li>
+          <li>但是浮动元素上的内联元素始终低于其他文字</li>
+          <li>浮动元素低于相对定位元素</li>
+        </ul>
+        <li>相对定位和绝对定位元素:</li>
+        <ul>
+          <li>相对定位元素和绝对定位元素会把浮动元素的内容都盖住</li>
+          <li> 相对定位的元素会把 <b>非定位的</b> 兄弟块级元素也盖住, 包括它上面的内联元素</li>
+          <li>相对定位元素和绝对定位元素的层叠顺序由元素先后顺序决定. 后面的元素在前面的元素上方, 即使是背景也会覆盖在上方</li>
+
+        </ul>
+        <li>z-index</li>
+        <ul>
+          <li>
+            z-index仅对定位元素生效
+          </li>
+          <li>
+            定位元素的默认 z-index 值是 auto
+          </li>
+          <li>定位元素的 z-index 对堆叠顺序有最高级别的影响, z-index 决定了定位元素的层叠关系</li>
+          <li>正值的z-index: 始终在其他元素的上方</li>
+          <li>负值的z-index: 始终在其他元素的下方(包括parent的背景)</li>
+        </ul>
+      </ul>
+    </div>
+
+    <div class="container">
+      <span>
+        这是父元素上的文字, 在边框的上方
+      </span>	
+
+      <div class="float"> 这是一个浮动的块级子元素
+      </div>
+      <div class="child">
+        <span>
+          这是另一个块级子元素 (灰色背景)
+        </span>
+      </div> 
+      <div class="relative">
+        这是一个相对定位的子元素.
+      </div>
+      <div class="absolute">
+        这是一个绝对定位的子元素	 </div>
+      <div class="relative" style="z-index:-1;margin-left:150px;">
+        这是一个 z-index:-1;margin-left:150px; 的相对定位的子元素.
+        <br>
+        这个元素的堆叠顺序会在父元素触发了堆叠上下文后改变 </div>  
+    </div> 
+    <div class="button">
+      <button>点我来触发容器的堆叠上下文</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      window.onload = ()=>{
+        let container = $('div.container')
+        let containerIsSContext = false
+        let button = $('.button> button')
+        button.on('click', ()=>{
+          containerIsSContext?
+            container.css({'z-index':'auto'}) : container.css({'z-index':0}) 
+
+          containerIsSContext = !containerIsSContext 
+        })
+      }
+    </script>
+  </body>
+</html>

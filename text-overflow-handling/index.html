@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <title>处理文字溢出</title>
+  <style>
+
+.parent{
+	margin-left:20px
+}
+.container1{
+	width:80px;
+	border:1px solid black;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis
+}
+
+.container2{
+	width:80px;
+	border:1px solid black;
+	/*   white-space:nowrap; */
+	overflow:hidden;
+	text-overflow:ellipsis
+}
+
+.container3{	
+	width: 80px;
+  border: 1px solid;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow:hidden;
+}
+  </style>
+</head>
+<body>
+<h1>使用 text-overflow 来处理文本溢出的示例</h1>
+<p>需要在 <b>块级元素</b> 上定义设置的属性</p>
+<ul>
+	<li>white-space: nowrap </li>
+	<li>overflow: hidden </li>
+	<li>text-overflow: ellipsis </li>
+</ul>
+
+<p>示例</p>
+<div class="parent">
+	<p>下面的示例用来表示设置了 <b>text-overflow: ellipsis 和 white-space:nowrap </b>的条件下多行字符串的省略效果:</p>
+	<div class='container1'>
+		11111111
+		11111111
+	</div>
+	<p>下面的示例用来表示设置了 <b>text-overflow:ellipsis, 但未设置white-space</b> 的条件下, 多行字符串的省略效果:</p>
+	<div class="container2">
+		111111111
+		111111111
+	</div>
+	<p>使用特殊的方法来实现 webkit 内核浏览器中, 多行文本溢出的省略效果</p>
+
+	<div class="container3">
+		111111111111111111			111111111111111111		111111111111111111	
+		111111111111111111	
+		111111111111111111	
+
+	</div>
+</div>
+
+
+<p>参考</p>
+<a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-overflow">MDN text-overflow</a>
+<br>
+<a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space">MDN white-space</a>
+
+</body>
+</html>
